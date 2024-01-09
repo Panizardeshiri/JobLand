@@ -58,6 +58,43 @@ class LogoutUserSerializer(serializers.Serializer):
             self.fail('bad_token')
 
 
+class AddressSerializer(serializers.ModelSerializer):
+    # class Meta:
+    #     model = Address
+    #     # fields = ('state','city','street','alley','plaque','postal_code','extra_comment')
+    #     fields = '__all__'
+
+    class Meta:
+        model = Address
+        exclude = ('user', )
+        
+    def create(self, validated_data):
+        user = self.context.get('request').user
+        validated_data['user_id'] = user.id
+        address = Address.objects.create(**validated_data)
+        Profile.objects.get(user= user).address.add(address)
+        return address
+
+
+
+
+
+
+
+class EditProfileSerializer(serializers.ModelSerializer):
+    # images = serializers.CharField(source="get_profile_images")
+    class Meta:
+        model = Profile
+        fields = ('first_name', 'last_name', 'description',)
+
+    
+    def update(self,instance,validated_data):
+        print('&*()',validated_data)
+        profile = Profile.objects.update(**validated_data)
+        
+        return profile
+
+        
 
 class ProfileListSerializer(serializers.ModelSerializer):
     images = serializers.CharField(source="get_profile_images")
