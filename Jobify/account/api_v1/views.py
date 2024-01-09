@@ -87,7 +87,7 @@ class EditProfileView(APIView):
      serializer_class = EditProfileSerializer
      def post(self,request):
           user = request.user
-          serializer= self.serializer_class(user,data=request.data)
+          serializer= self.serializer_class(user,data=request.data, context={'request': request})
           serializer.is_valid(raise_exception=True)
           serializer.save()
           return Response('Profile is successfully updated')

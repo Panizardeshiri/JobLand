@@ -83,13 +83,17 @@ class AddressSerializer(serializers.ModelSerializer):
 
 class EditProfileSerializer(serializers.ModelSerializer):
     # images = serializers.CharField(source="get_profile_images")
+    # skills =serializers.StringRelatedField(many=True)
     class Meta:
         model = Profile
-        fields = ('first_name', 'last_name', 'description',)
+        fields = ('first_name', 'last_name', 'bio',"skill")
 
     
     def update(self,instance,validated_data):
         print('&*()',validated_data)
+        user = self.context.get('request').user
+        user_profile = Profile.objects.get(user=user)
+        user_profile.skill.add(validated_data['skill'])
         profile = Profile.objects.update(**validated_data)
         
         return profile

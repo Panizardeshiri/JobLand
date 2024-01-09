@@ -17,14 +17,26 @@ class Address(models.Model):
 
     def __str__(self):
         return f"{self.state} / {self.city} / {self.street}"
-    
+
+
+class Skill(models.Model):
+    name = models.CharField(max_length=255,blank=False,null=False,unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile_user')
     first_name = models.CharField(max_length=250, blank=True, null=True)
     last_name = models.CharField(max_length=250, blank=True, null=True)
     address = models.ManyToManyField(Address, related_name='profile_address')
-    description = models.TextField(blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)
+    skill = models.ManyToManyField(Skill, related_name='profile_skill')
+    score = models.IntegerField(default=0)
+    balance = models.IntegerField(default =0)
+    approved = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
    
