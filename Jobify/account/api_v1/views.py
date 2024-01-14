@@ -87,14 +87,24 @@ class EditProfileView(APIView):
      serializer_class = EditProfileSerializer
      def post(self,request):
           user = request.user
-          serializer= self.serializer_class(user,data=request.data, context={'request': request})
+          serializer= self.serializer_class(user,data=request.data)
           serializer.is_valid(raise_exception=True)
           serializer.save()
           return Response('Profile is successfully updated')
 
 
 
+class AddSkillView(APIView):
+    serializer_class = AddSkillSerializer
 
+    def post(self,request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user= request.user
+        user_profile = Profile.objects.get(user=user)
+        user_profile.skill.add(serializer.validated_data['skill'])
+        user_profile.save()
+        return Response('skill is added.')
 
 class ProfileListView(APIView):
      serializer_class = ProfileListSerializer

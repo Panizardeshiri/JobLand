@@ -10,10 +10,14 @@ class UserAdmin(admin.ModelAdmin):
     list_filter = ['created_date']
     list_editable= ['user_type','gender']
 
+@admin.register(Skill)
+class SkillAdmin(admin.ModelAdmin):
+    list_display = ['name','id']
+
 
 
 
 admin.site.register(ProfileImage)
 admin.site.register(Profile)
 admin.site.register(Address)
-admin.site.register(Skill)
+# admin.site.register(Skill)

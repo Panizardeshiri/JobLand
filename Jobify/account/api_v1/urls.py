@@ -10,6 +10,7 @@ urlpatterns = [
     path('profile-list/<int:id>/',ProfileListView.as_view(),name='profile-list'),
     path('add-address/',AddAddressView.as_view(),name='add-adderess'),
     path('edit-profile/',EditProfileView.as_view(),name='edit-profile'),
-    path('edit-address/<int:id>',EditAdressView.as_view(),name='edit-address')
+    path('edit-address/<int:id>',EditAdressView.as_view(),name='edit-address'),
+    path('add-skill/',AddSkillView.as_view(),name='add-skill'),
 
 ]

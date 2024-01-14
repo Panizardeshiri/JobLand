@@ -4,7 +4,7 @@ def profile_list():
     response = requests.get('http://127.0.0.1:8000/account/api-v1/profile-list/')
     return response
 
-print(profile_list())
+# print(profile_list())
 
 def edit_profile(first_name,last_name,bio,skill,token):
     response = requests.post('http://127.0.0.1:8000/account/api-v1/edit-profile/', {'first_name':first_name,'last_name':last_name,'bio':bio,'skill':skill,},headers={
@@ -14,7 +14,7 @@ def edit_profile(first_name,last_name,bio,skill,token):
     print(response.text)
 
 
-edit_profile('pann','hosi','nothing','برنامه نویسی','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2MDE0OTA4LCJpYXQiOjE3MDQ4MDUzMDgsImp0aSI6IjJhMmYzZDJhMDE1ZjQ2MmU4MGMzMjFlMzYwY2U2NjFjIiwidXNlcl9pZCI6MTh9.mc9LwO6sL7RqrIJLngfLLke3nKSc3qQem_tIxsMrCg8')
+# edit_profile('pann','hosi','nothing',' 2','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2MDE0OTA4LCJpYXQiOjE3MDQ4MDUzMDgsImp0aSI6IjJhMmYzZDJhMDE1ZjQ2MmU4MGMzMjFlMzYwY2U2NjFjIiwidXNlcl9pZCI6MTh9.mc9LwO6sL7RqrIJLngfLLke3nKSc3qQem_tIxsMrCg8')
 
 
 def address(token):
@@ -52,3 +52,11 @@ def delete_address(token):
     print(response.text)
 # delete_address('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2MDE0OTA4LCJpYXQiOjE3MDQ4MDUzMDgsImp0aSI6IjJhMmYzZDJhMDE1ZjQ2MmU4MGMzMjFlMzYwY2U2NjFjIiwidXNlcl9pZCI6MTh9.mc9LwO6sL7RqrIJLngfLLke3nKSc3qQem_tIxsMrCg8')
 
+def add_skill(skill,token):
+     response = requests.post('http://127.0.0.1:8000/account/api-v1/add-skill/',{'skill':skill}, headers={
+        "Authorization":f"Bearer {token}"
+     })
+
+     print(response.json())
+
+add_skill('2','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2MDk1NTU2LCJpYXQiOjE3MDQ4ODU5NTYsImp0aSI6IjI3MmY2ZDFiY2QzODQ2Mjc5ZDYzNGNiNDc1NDc2Y2FlIiwidXNlcl9pZCI6MTh9.oVUJpOBvNtd53ySTchZ3QNdJQNwVTUIZxrpHDbIofsw')

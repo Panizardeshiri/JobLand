@@ -84,20 +84,43 @@ class AddressSerializer(serializers.ModelSerializer):
 class EditProfileSerializer(serializers.ModelSerializer):
     # images = serializers.CharField(source="get_profile_images")
     # skills =serializers.StringRelatedField(many=True)
+    # skills = serializers.SerializerMethodField(method_name='get_id')
+    # skills= Skill.objects.all().values_list('id',flat=True)
+    
+    # def get_id(self,instance):
+    #     try:
+    #         skills= Skill.objects.all().values_list('id',flat=True)
+    #         print("######",instance.skills)
+
+    #         return instance.skills
+    #     except:
+    #         return False
+
     class Meta:
         model = Profile
+        # extra_fields = ['skills']
         fields = ('first_name', 'last_name', 'bio',"skill")
+       
+
+    
 
     
     def update(self,instance,validated_data):
-        print('&*()',validated_data)
-        user = self.context.get('request').user
-        user_profile = Profile.objects.get(user=user)
-        user_profile.skill.add(validated_data['skill'])
+        # print('&*()',validated_data['skill'])
+        # skills= Skill.objects.all()
+        # sk =skills.values_list('id',flat=True)
+        # print(sk,'$$$')
+        # user = self.context.get('request').user
+        # user_profile = Profile.objects.get(user=user)
+        # user_profile.skill.add(validated_data['skill'])
         profile = Profile.objects.update(**validated_data)
         
         return profile
 
+class AddSkillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Skill
+        fields = ('id',)
         
 
 class ProfileListSerializer(serializers.ModelSerializer):
